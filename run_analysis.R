@@ -65,6 +65,9 @@ write.table(final_table, "final_table_mean_std_merged.txt")
 
 ## 5. Creates a 2nd, independent tidy data set with the average of each variable for each activity and each subject.
 
+## Just to highlight. The 5th step is very interesting: you can do it in several ways.
+## Instead of next loop you can use combination of first melt and then dcast functions.
+
 ## Find all unique subjects and return a vector without subjects duplicating
 uniqSubjects = unique(sCombined)[,1]
 ## Total unique subjects
