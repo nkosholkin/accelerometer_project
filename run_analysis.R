@@ -40,7 +40,7 @@ onlyNeedFeatures <- grep("-mean\\(\\)|-std\\(\\)", featuresDate[ ,2])
 ## Extracting only "right" columns
 xCombined <- xCombined[, onlyNeedFeatures]
 ## Name each column appropriately their Feature names
-names(xCombined) <- features[onlyNeedFeatures, 2]
+names(xCombined) <- featuresDate[onlyNeedFeatures, 2]
 ## Get rid of "()" from column names (its not for the Tiny data principle, but for your eye)
 names(xCombined) <- gsub("\\(|\\)", "", names(xCombined))
 
@@ -67,6 +67,20 @@ write.table(final_table, "final_table_mean_std_merged.txt")
 
 ## Just to highlight. The 5th step is very interesting: you can do it in several ways.
 ## Instead of next loop you can use combination of first melt and then dcast functions.
+## (here is one # is for line code and two ## for comment)
+
+# install.packages("reshape2")
+# library(reshape2)
+## Making a vectire with future column names
+# cNames = c("Activity_Name", "Subject_ID")
+## Return only activity names (exclude id_vars)
+# allVars = setdiff(colnames(final_table), cNames)
+## Melting table with setting ids only for "Activity_Name", "Subject_ID" and their measure is variable and their value
+# melted_data <- melt(final_table, id=cNames, measure.vars=allVars)
+## Recaste into data frame. We want to see Subject_ID AND Activity_Name broken by variables. Taking mean for each value
+# tidyData <- dcast(melted_data, Subject_ID + Activity_Name ~ variable, mean)    
+# write.table(tidyData, "tidyDataSet.txt")
+
 
 ## Find all unique subjects and return a vector without subjects duplicating
 uniqSubjects = unique(sCombined)[,1]
