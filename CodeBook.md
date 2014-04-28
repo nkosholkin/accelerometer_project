@@ -79,7 +79,7 @@ Almost all steps has been recorded as a comment in the script. Here are basic st
 * Exctract mean and standart deviation variables (from features.txt)
 * Name all activities (combine data from features.txt and activity_labels.txt)
 * Combine all tables and save it as final_table_mean_std_merged.txt (with 68 columns and 10299 rows)
-* Create new file with tidy data and save it as .txt (average of each variable for each activity and each subject - doing it via 2 nested loop functions)
+* Create new file with tidy data and save it as .txt (average of each variable for each activity and each subject)
 
 As the result there would be 2 files with the .txt format: 
 * final_table_mean_std_merged.txt (~8.3 Mb, with clear (Tidy) columns and rows and as a variables)
