@@ -67,12 +67,10 @@ write.table(final_table, "final_table_mean_std_merged.txt")
 
 install.packages("reshape2")
 library(reshape2)
-## Making a vectire with future column names
-cNames = c("Activity_Name", "Subject_ID")
-## Return only activity names (exclude id_vars)
-allVars = setdiff(colnames(final_table), cNames) ## or we can use allVars = colnames(final_table[,3:ncol(final_table)])
+## Return only activity names (exclude id_vars - first 2 column)
+allVars = colnames(final_table[,3:ncol(final_table)])
 ## Melting table with setting ids only for "Activity_Name", "Subject_ID" and their measure is variable and their value
-melted_data <- melt(final_table, id=cNames, measure.vars=allVars)
+melted_data <- melt(final_table, id=c("Activity_Name", "Subject_ID"), measure.vars=allVars)
 ## Recaste into data frame. We want to see Subject_ID AND Activity_Name broken by variables. Taking mean for each value
 tidyData <- dcast(melted_data, Subject_ID + Activity_Name ~ variable, mean)    
 ## Write tidy data
