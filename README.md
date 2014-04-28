@@ -9,7 +9,7 @@ Almost all steps has been recorded as a comment in the script. Here are basic st
 
 As the result there would be 2 files with the .txt format: 
 * final_table_mean_std_merged.txt (~8.3 Mb, with clear (Tidy) columns and rows and as a variables)
-* tidyDataSet.txt (~147 KB, data set with the average of each variable for each activity and each subject. 
+* tidyDataSet.txt (~225 KB, data set with the average of each variable for each activity and each subject. 
 
 ## Run scripit
 
