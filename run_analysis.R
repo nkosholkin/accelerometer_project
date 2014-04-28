@@ -65,54 +65,14 @@ write.table(final_table, "final_table_mean_std_merged.txt")
 
 ## 5. Creates a 2nd, independent tidy data set with the average of each variable for each activity and each subject.
 
-## Just to highlight. The 5th step is very interesting: you can do it in several ways.
-## Instead of next loop you can use combination of first melt and then dcast functions.
-## (here is one # is for line code and two ## for comment)
-
-# install.packages("reshape2")
-# library(reshape2)
+install.packages("reshape2")
+library(reshape2)
 ## Making a vectire with future column names
-# cNames = c("Activity_Name", "Subject_ID")
+cNames = c("Activity_Name", "Subject_ID")
 ## Return only activity names (exclude id_vars)
-# allVars = setdiff(colnames(final_table), cNames)
+allVars = setdiff(colnames(final_table), cNames)
 ## Melting table with setting ids only for "Activity_Name", "Subject_ID" and their measure is variable and their value
-# melted_data <- melt(final_table, id=cNames, measure.vars=allVars)
+melted_data <- melt(final_table, id=cNames, measure.vars=allVars)
 ## Recaste into data frame. We want to see Subject_ID AND Activity_Name broken by variables. Taking mean for each value
-# tidyData <- dcast(melted_data, Subject_ID + Activity_Name ~ variable, mean)    
-# write.table(tidyData, "tidyDataSet.txt")
-
-
-## Find all unique subjects and return a vector without subjects duplicating
-uniqSubjects = unique(sCombined)[,1]
-## Total unique subjects
-totalSubjects = length(uniqueSubjects)
-## Total activities (they are all unique, hence we dont count them unique as
-## in for subjects). We use [,1] to make a value from a vector.
-totalActivities = length(listOfActivities[,1])
-## Total columns in our final merges table
-totalCol = ncol(final_table)
-## A table with 68 columns (2 for Acitivity_name and Subject_ID) and 
-## 180 rows (since there are 6 activities and 30 subjects)
-tidy = final_table[1:(totalSubjects*totalActivities), ]
-
-## Start with the first row
-row = 1
-## Loop over all subjects
-for (s in 1:totalSubjects) {
-        ## Loop over all activities as well
-        for (a in 1:totalActivities) {
-                ## Choose subject
-                tidy[row, 1] = uniqSubjects[s]
-                ## Choose activity
-                tidy[row, 2] = listOfActivities[a, 2]
-                ## Create a data frame with these parameters 
-                df <- final_table[final_table$Subject_ID==s & final_table$Activity_ID==listOfActivities[a, 2], ]
-                ## Calculate mean
-                result[row, 3:totalCol] <- colMeans(df[, 3:totalCol])
-                ## Update row
-                row = row+1
-        }
-}
-
-## Create a table with tidy mean data
-write.table(tidy, "tidyDataSet.txt")
+tidyData <- dcast(melted_data, Subject_ID + Activity_Name ~ variable, mean)    
+write.table(tidyData, "tidyDataSet.txt")
